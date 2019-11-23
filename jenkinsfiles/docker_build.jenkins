@@ -15,9 +15,9 @@ pipeline {
         stage("docker login") {
             steps {
                 echo " ============== docker login =================="
-                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub_semaev', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh """
-                    docker login -u ${torg879} -p {zahid2017}
+                    docker login -u $USERNAME -p $PASSWORD
                     """
                 }
             }
@@ -26,7 +26,7 @@ pipeline {
             steps {
                 echo " ============== start building image =================="
                 dir ('docker/toolbox') {
-                    sh 'docker build -t torg879/toolbox:latest . '
+                	sh 'docker build -t semaev/toolbox:latest . '
                 }
             }
         }
@@ -34,7 +34,7 @@ pipeline {
             steps {
                 echo " ============== start pushing image =================="
                 sh '''
-                docker push torg879/toolbox:latest
+                docker push semaev/toolbox:latest
                 '''
             }
         }
